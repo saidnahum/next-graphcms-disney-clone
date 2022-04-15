@@ -1,4 +1,6 @@
+import Link from 'next/link';
 import { gql, ApolloClient, InMemoryCache } from '@apollo/client';
+import Section from '../components/Section';
 //import { bootstrap as bootstrapGlobalAgent } from 'global-agent';
 
 export const getStaticProps = async () => {
@@ -50,16 +52,30 @@ export const getStaticProps = async () => {
 }
 
 const Home = ({ videos }) => {
+
+	const randomVideo = (videos) => {
+		return videos[Math.floor(Math.random() * videos.length)];
+	}
 	
 	return (
-		<div>
-			{videos.map((video, i) => (
-				<div key={video.id}>
-					<h1>{i+1}-{video.title}</h1>
-					<p>{video.description}</p>
+		<>
+			<div className='app'>
+				<div className="main-video">
+					<img src={randomVideo(videos).thumbnail.url} alt={randomVideo(videos).title} width={300}/>
 				</div>
-			))}
-		</div>
+			</div>
+
+			<div className="video-feed">
+				<Section genre={`Family`}/>
+				<Section genre={`Thriller`}/>
+				<Section genre={`Classic`}/>
+				<Section genre={`Pixar`}/>
+				<Section genre={`Marvel`}/>
+				<Section genre={`National Geographic`}/>
+				<Section genre={`Disney`}/>
+				<Section genre={`Star Wars`}/>
+			</div>
+		</>
 	)
 }
 
